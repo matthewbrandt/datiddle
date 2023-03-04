@@ -1,4 +1,4 @@
-import { WORDS } from "./words.js";
+import { WORDS } from "/words.js";
 
 const NUMBER_OF_GUESSES = 6;
 let guessesRemaining = NUMBER_OF_GUESSES;
@@ -66,10 +66,10 @@ function checkGuess() {
     return;
   }
 
-  if (!WORDS.includes(guessString)) {
+  /* if (!WORDS.includes(currentGuess)) {
     toastr.error("Word not in list!");
     return;
-  }
+  } */
 
   var letterColor = ["gray", "gray", "gray", "gray", "gray"];
 
