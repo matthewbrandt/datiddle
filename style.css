@@ -1,6 +1,10 @@
 :root {
   --darkgrey: #202124;
   --white: #fff;
+  --yellow: #EDAE49;
+  --green: #44CF6C;
+  --red: #FF1B1C;
+  --blue: #227C9D;
 }
 
 body {
@@ -8,7 +12,8 @@ body {
 }
 
 h1 {
- text-align: center;
+  margin-top: 4rem;
+  text-align: center;
 }
 
 #game-board {
@@ -62,6 +67,19 @@ h1 {
   min-width: 40px;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+/* override toast notification colours */
+.toast-error {
+  background-color: var(--red);
+}
+
+.toast-info {
+  background-color: var(--blue);
+}
+
+#toast-container > div {
+  opacity: 0.9;
 }
 
 @media (prefers-color-scheme: dark) {
