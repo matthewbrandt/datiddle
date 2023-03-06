@@ -8,8 +8,14 @@ let rightGuessString = solutions[Math.floor(Math.random() * solutions.length)];
 // game colours
 let position = '#EDAE49';
 let correct = '#44CF6C';
-let banned = '#FF1B1C'
+let banned = '#FF1B1C';
 //console.log(rightGuessString);
+
+// set up notification style
+toastr.options = {
+  "progressBar": true,
+  "positionClass": "toast-top-full-width"
+}
 
 function initBoard() {
   let board = document.getElementById("game-board");
@@ -65,7 +71,7 @@ function checkGuess() {
   }
 
   if (guessString.length != 5) {
-    toastr.error("Not enough letters!");
+    toastr.warning("Not enough letters!");
     return;
   }
 
@@ -114,6 +120,7 @@ function checkGuess() {
 
   if (forbiddenWords.includes(currentGuess.join(""))) {
     toastr.error("You used a forbidden word! Game over!");
+    toastr.info(`The right word was: "${rightGuessString.toUpperCase()}"`);
     guessesRemaining = 0;
     
     for (let i = 0; i < 5; i++) {
@@ -131,6 +138,10 @@ function checkGuess() {
     guessesRemaining -= 1;
     currentGuess = [];
     nextLetter = 0;
+
+    if (guessesRemaining === 1) {
+      toastr.warning("Only 1 guess left! Make it count!")
+    }
 
     if (guessesRemaining === 0) {
       toastr.error("You've run out of guesses! Game over!");
