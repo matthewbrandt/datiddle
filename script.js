@@ -5,7 +5,10 @@ let guessesRemaining = NUMBER_OF_GUESSES;
 let currentGuess = [];
 let nextLetter = 0;
 let rightGuessString = solutions[Math.floor(Math.random() * solutions.length)];
-
+// game colours
+let position = '#EDAE49';
+let correct = '#44CF6C';
+let banned = '#FF1B1C'
 //console.log(rightGuessString);
 
 function initBoard() {
@@ -29,11 +32,11 @@ function shadeKeyBoard(letter, color) {
   for (const elem of document.getElementsByClassName("keyboard-button")) {
     if (elem.textContent === letter) {
       let oldColor = elem.style.backgroundColor;
-      if (oldColor === "green") {
+      if (oldColor === correct) {
         return;
       }
 
-      if (oldColor === "yellow" && color !== "green") {
+      if (oldColor === position && color !== correct) {
         return;
       }
 
@@ -73,23 +76,23 @@ function checkGuess() {
 
   var letterColor = ["gray", "gray", "gray", "gray", "gray"];
 
-  //check green
+  //check correct
   for (let i = 0; i < 5; i++) {
     if (rightGuess[i] == currentGuess[i]) {
-      letterColor[i] = "green";
+      letterColor[i] = correct;
       rightGuess[i] = "#";
     }
   }
 
-  //check yellow
+  //check position
   //checking guess letters
   for (let i = 0; i < 5; i++) {
-    if (letterColor[i] == "green") continue;
+    if (letterColor[i] == correct) continue;
 
     //checking right letters
     for (let j = 0; j < 5; j++) {
       if (rightGuess[j] == currentGuess[i]) {
-        letterColor[i] = "yellow";
+        letterColor[i] = position;
         rightGuess[j] = "#";
       }
     }
@@ -114,7 +117,7 @@ function checkGuess() {
     guessesRemaining = 0;
     
     for (let i = 0; i < 5; i++) {
-      letterColor[i] = "red";
+      letterColor[i] = banned;
     }
 
     return;
