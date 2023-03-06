@@ -13,6 +13,7 @@ export const solutions = [
   'delta',
   'depth',
   'error',
+  'farts',
   'fetch',
   'field',
   'flask',

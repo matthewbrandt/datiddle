@@ -1,3 +1,12 @@
+:root {
+  --darkgrey: #202124;
+  --white: #fff;
+}
+
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
 h1 {
  text-align: center;
 }
@@ -9,7 +18,7 @@ h1 {
 }
 
 .letter-box {
-  border: 2px solid gray;
+  border: 2px solid var(--darkgrey);
   border-radius: 3px;
   margin: 2px;
   font-size: 2.5rem;
@@ -23,7 +32,7 @@ h1 {
 }
 
 .filled-box {
-  border: 2px solid black;
+  border: 2px solid var(--darkgrey);
 }
 
 .letter-row {
@@ -50,6 +59,22 @@ h1 {
   font-weight: 700;
   padding: 0.5rem;
   margin: 0 2px;
+  min-width: 40px;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: var(--darkgrey);
+    color: var(--white);
+  }
+
+  .letter-box {
+    border: 2px solid var(--white);
+  }
+
+  .filled-box {
+    border: 2px solid var(--white);
+  }
 }
