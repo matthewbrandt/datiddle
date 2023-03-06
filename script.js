@@ -106,6 +106,19 @@ function checkGuess() {
       shadeKeyBoard(guessString.charAt(i) + "", letterColor[i]);
     }, delay);
   }
+  
+  let forbiddenWords = ['matty','shoes','first'];
+
+  if (forbiddenWords.includes(currentGuess.join(""))) {
+    toastr.error("You used a forbidden word! Game over!");
+    guessesRemaining = 0;
+    
+    for (let i = 0; i < 5; i++) {
+      letterColor[i] = "red";
+    }
+
+    return;
+  }
 
   if (guessString === rightGuessString) {
     toastr.success("You guessed right! Game over!");
