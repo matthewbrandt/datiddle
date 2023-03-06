@@ -1,8 +1,7 @@
-export const WORDS = [
+export const solutions = [
   'chart',
   'clean',
   'cloud',
-  'clust',
   'datum',
   'delta',
   'depth',
@@ -25,6 +24,7 @@ export const WORDS = [
   'probe',
   'query',
   'range',
+  'right',
   'score',
   'slice',
   'split',
