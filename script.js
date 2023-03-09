@@ -9,6 +9,7 @@ let rightGuessString = solutions[Math.floor(Math.random() * solutions.length)];
 let position = '#EDAE49';
 let correct = '#44CF6C';
 let banned = '#FF1B1C';
+let broke = '#5F634F';
 //console.log(rightGuessString);
 
 // set up notification style
@@ -20,9 +21,8 @@ toastr.options = {
 // toggle in frontend for "Scrabble Datiddle"
 
 
-// when each guess is submitted, subtract the total points used
-// check on each guess if points remaining > 0
-// if points remaining = 0 (before rightguess) then FAILURE
+
+
 
 
 // create letter points array
@@ -36,6 +36,7 @@ let scrabbleLetters = {
   10 : ['q','z']
 }
 
+// create helper object to get point value for each letter
 let letterPointObj = {};
 for(var pointValue in scrabbleLetters) { 
   let lettersArray = scrabbleLetters[pointValue];
@@ -44,16 +45,16 @@ for(var pointValue in scrabbleLetters) {
   }
 }  
 
-console.log(rightGuessString);
-let rightGuessPoints = 0;
+console.log('solution:',rightGuessString);
+let pointBalance = 0;
 
 // when solution is loaded, calculate available points for player
 for (let i = 0; i < 5; i++) {
   let char = rightGuessString[i];
   let pointVal = letterPointObj[char];
-  rightGuessPoints += pointVal;
+  pointBalance += pointVal;
 }
-console.log(rightGuessPoints);
+console.log('pointBal:',pointBalance);
 
 
 function initBoard() {
@@ -104,6 +105,8 @@ function checkGuess() {
   let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
   let guessString = "";
   let rightGuess = Array.from(rightGuessString);
+
+  // when each guess is submitted, subtract the total points used
 
   for (const val of currentGuess) {
     guessString += val;
@@ -166,6 +169,26 @@ function checkGuess() {
       letterColor[i] = banned;
     }
 
+    return;
+  }
+
+  // subtract currentGuess from point balance
+  for (let i = 0; i < 5; i++) {
+    let char = currentGuess[i];
+    let pointVal = letterPointObj[char];
+    pointBalance -= pointVal;
+  }
+  console.log('pointBal:',pointBalance);
+
+  // check on each guess if points remaining >= 0
+  // if points remaining < 0 then FAILURE
+  if (pointBalance < 0) {
+    toastr.error("You ran out of points! Game over!");
+    toastr.info(`The right word was: "${rightGuessString.toUpperCase()}"`);
+    guessesRemaining = 0;
+    for (let i = 0; i < 5; i++) {
+      letterColor[i] = broke;
+    }
     return;
   }
 
