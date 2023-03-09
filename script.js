@@ -17,6 +17,45 @@ toastr.options = {
   "positionClass": "toast-top-full-width"
 }
 
+// toggle in frontend for "Scrabble Datiddle"
+
+
+// when each guess is submitted, subtract the total points used
+// check on each guess if points remaining > 0
+// if points remaining = 0 (before rightguess) then FAILURE
+
+
+// create letter points array
+let scrabbleLetters = {
+  1 : ['a','e','i','o','u','l','n','s','t','r'],
+  2 : ['d','g'],
+  3 : ['b','c','m','p'],
+  4 : ['f','h','v','w','y'],
+  5 : ['k'],
+  8 : ['j','x'],
+  10 : ['q','z']
+}
+
+let letterPointObj = {};
+for(var pointValue in scrabbleLetters) { 
+  let lettersArray = scrabbleLetters[pointValue];
+  for(var letter of lettersArray) { 
+    letterPointObj[letter] = Number(pointValue);
+  }
+}  
+
+console.log(rightGuessString);
+let rightGuessPoints = 0;
+
+// when solution is loaded, calculate available points for player
+for (let i = 0; i < 5; i++) {
+  let char = rightGuessString[i];
+  let pointVal = letterPointObj[char];
+  rightGuessPoints += pointVal;
+}
+console.log(rightGuessPoints);
+
+
 function initBoard() {
   let board = document.getElementById("game-board");
 

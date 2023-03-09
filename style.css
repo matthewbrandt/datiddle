@@ -370,6 +370,9 @@ body {
 
 h1 {
   margin-top: 4rem;
+}
+
+h1, h2 {
   text-align: center;
 }
 
