@@ -7,6 +7,13 @@
   --blue: #227C9D;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
@@ -94,5 +101,12 @@ h1 {
 
   .filled-box {
     border: 2px solid var(--white);
+  }
+}
+
+@media (max-width: 420px) {
+  .keyboard-button {
+    min-width: 0px;
+    padding: 0.4rem;
   }
 }
