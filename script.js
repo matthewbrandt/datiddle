@@ -45,15 +45,32 @@ for(var pointValue in scrabbleLetters) {
   }
 }  
 
-console.log('solution:',rightGuessString);
+// temp: calculate points per solution word
+/*let charPoints = 0;
+let pointAvg = 0;
+let avgArr = [];
+for(const word of solutions) {
+  for(const char of word) {
+    charPoints = Number(letterPointObj[char]);
+    pointAvg += charPoints;
+  }
+  avgArr.push([word,pointAvg]);
+  pointAvg = 0;
+}
+console.table(avgArr);*/
+
+
+
+//console.log('solution:',rightGuessString);
 let pointBalance = 0;
 
-// when solution is loaded, calculate available points for player
-for (let i = 0; i < 5; i++) {
+// alternative mode: calculate available points for player
+/*for (let i = 0; i < 5; i++) {
   let char = rightGuessString[i];
   let pointVal = letterPointObj[char];
   pointBalance += pointVal;
-}
+}*/
+pointBalance = 39;
 console.log('pointBal:',pointBalance);
 
 
