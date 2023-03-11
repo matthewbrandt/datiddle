@@ -11,7 +11,33 @@
 </head>
 <body>
     <h1>Datiddle</h1>
+    <h2>A Wordle clone where all solution words are Data & Analytics related!</h2>
     
+    <div class="switch-wrapper">
+        <div class="switch-text">Scrabble Mode
+            <label class="switch"><input id="scrabble-toggle" type="checkbox"><span class="slider"></span></label>
+        </div>
+        <p class="switch-explainer">
+            In this game mode, you will start with <span class="explainer-points">39</span> points. Each guess will subtract points from your balance based on the total value of the word.
+            <br>
+            <br>
+            The points are calculated using Scrabble's points system:
+        </p>
+            <ul class="explainer-list">
+                <li>1: A,E,I,O,U,L,N,S,T,R</li>
+                <li>2: D,G</li>
+                <li>3: B,C,M,P</li>
+                <li>4: F,H,V,W,Y</li>
+                <li>5: K</li>
+                <li>8: J,X</li>
+                <li>10: Q,Z</li>
+            </ul>
+        
+        
+        <p id="point-balance" class="point-balance">Your current point balance: <span>39</span></p>
+        
+    </div>
+
     <div id="game-board">
 
     </div>

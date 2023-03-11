@@ -9,6 +9,7 @@ let rightGuessString = solutions[Math.floor(Math.random() * solutions.length)];
 let position = '#EDAE49';
 let correct = '#44CF6C';
 let banned = '#FF1B1C';
+let broke = '#5F634F';
 //console.log(rightGuessString);
 
 // set up notification style
@@ -16,6 +17,51 @@ toastr.options = {
   "progressBar": true,
   "positionClass": "toast-top-full-width"
 }
+
+// create letter points array
+let scrabbleLetters = {
+  1 : ['a','e','i','o','u','l','n','s','t','r'],
+  2 : ['d','g'],
+  3 : ['b','c','m','p'],
+  4 : ['f','h','v','w','y'],
+  5 : ['k'],
+  8 : ['j','x'],
+  10 : ['q','z']
+}
+
+// create helper object to get point value for each letter
+let letterPointObj = {};
+for(var pointValue in scrabbleLetters) { 
+  let lettersArray = scrabbleLetters[pointValue];
+  for(var letter of lettersArray) { 
+    letterPointObj[letter] = Number(pointValue);
+  }
+}  
+
+// temp: calculate points per solution word
+/*let charPoints = 0;
+let pointAvg = 0;
+let avgArr = [];
+for(const word of solutions) {
+  for(const char of word) {
+    charPoints = Number(letterPointObj[char]);
+    pointAvg += charPoints;
+  }
+  avgArr.push([word,pointAvg]);
+  pointAvg = 0;
+}
+console.table(avgArr);*/
+
+//console.log('solution:',rightGuessString);
+let pointBalance = 0;
+
+// alternative mode: calculate available points for player
+/*for (let i = 0; i < 5; i++) {
+  let char = rightGuessString[i];
+  let pointVal = letterPointObj[char];
+  pointBalance += pointVal;
+}*/
+pointBalance = 39;
 
 function initBoard() {
   let board = document.getElementById("game-board");
@@ -65,6 +111,8 @@ function checkGuess() {
   let row = document.getElementsByClassName("letter-row")[6 - guessesRemaining];
   let guessString = "";
   let rightGuess = Array.from(rightGuessString);
+
+  // when each guess is submitted, subtract the total points used
 
   for (const val of currentGuess) {
     guessString += val;
@@ -119,6 +167,12 @@ function checkGuess() {
   let forbiddenWords = ['matty','shoes','first'];
 
   if (forbiddenWords.includes(currentGuess.join(""))) {
+    toastr.options = {
+      "progressBar": true,
+      "positionClass": "toast-top-full-width",
+      "timeOut": 0,
+      "extendedTimeOut": 0
+    }
     toastr.error("You used a forbidden word! Game over!");
     toastr.info(`The right word was: "${rightGuessString.toUpperCase()}"`);
     guessesRemaining = 0;
@@ -127,6 +181,36 @@ function checkGuess() {
       letterColor[i] = banned;
     }
 
+    return;
+  }
+
+  let scrabbleActive = document.getElementById("scrabble-toggle").checked;
+  // subtract currentGuess from point balance
+  for (let i = 0; i < 5; i++) {
+    let char = currentGuess[i];
+    let pointVal = letterPointObj[char];
+    pointBalance -= pointVal;
+    if (scrabbleActive) {
+      document.querySelector("#point-balance span").innerHTML = pointBalance;
+    }
+  }
+
+  // check on each guess if points remaining >= 0
+  // if points remaining < 0 then FAILURE
+  // only active if toggle is checked!
+  if (pointBalance < 0 && scrabbleActive) {
+    toastr.options = {
+      "progressBar": true,
+      "positionClass": "toast-top-full-width",
+      "timeOut": 0,
+      "extendedTimeOut": 0
+    }
+    toastr.error("You ran out of points! Game over!");
+    toastr.info(`The right word was "${rightGuessString.toUpperCase()}"`);
+    guessesRemaining = 0;
+    for (let i = 0; i < 5; i++) {
+      letterColor[i] = broke;
+    }
     return;
   }
 
@@ -144,8 +228,14 @@ function checkGuess() {
     }
 
     if (guessesRemaining === 0) {
+      toastr.options = {
+        "progressBar": true,
+        "positionClass": "toast-top-full-width",
+        "timeOut": 0,
+        "extendedTimeOut": 0
+      }
       toastr.error("You've run out of guesses! Game over!");
-      toastr.info(`The right word was: "${rightGuessString}"`);
+      toastr.info(`The right word was "${rightGuessString.toUpperCase()}"`);
     }
   }
 }
