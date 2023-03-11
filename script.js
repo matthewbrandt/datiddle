@@ -18,13 +18,6 @@ toastr.options = {
   "positionClass": "toast-top-full-width"
 }
 
-// toggle in frontend for "Scrabble Datiddle"
-
-
-
-
-
-
 // create letter points array
 let scrabbleLetters = {
   1 : ['a','e','i','o','u','l','n','s','t','r'],
@@ -59,8 +52,6 @@ for(const word of solutions) {
 }
 console.table(avgArr);*/
 
-
-
 //console.log('solution:',rightGuessString);
 let pointBalance = 0;
 
@@ -71,8 +62,6 @@ let pointBalance = 0;
   pointBalance += pointVal;
 }*/
 pointBalance = 39;
-console.log('pointBal:',pointBalance);
-
 
 function initBoard() {
   let board = document.getElementById("game-board");
@@ -178,6 +167,12 @@ function checkGuess() {
   let forbiddenWords = ['matty','shoes','first'];
 
   if (forbiddenWords.includes(currentGuess.join(""))) {
+    toastr.options = {
+      "progressBar": true,
+      "positionClass": "toast-top-full-width",
+      "timeOut": 0,
+      "extendedTimeOut": 0
+    }
     toastr.error("You used a forbidden word! Game over!");
     toastr.info(`The right word was: "${rightGuessString.toUpperCase()}"`);
     guessesRemaining = 0;
@@ -189,19 +184,29 @@ function checkGuess() {
     return;
   }
 
+  let scrabbleActive = document.getElementById("scrabble-toggle").checked;
   // subtract currentGuess from point balance
   for (let i = 0; i < 5; i++) {
     let char = currentGuess[i];
     let pointVal = letterPointObj[char];
     pointBalance -= pointVal;
+    if (scrabbleActive) {
+      document.querySelector("#point-balance span").innerHTML = pointBalance;
+    }
   }
-  console.log('pointBal:',pointBalance);
 
   // check on each guess if points remaining >= 0
   // if points remaining < 0 then FAILURE
-  if (pointBalance < 0) {
+  // only active if toggle is checked!
+  if (pointBalance < 0 && scrabbleActive) {
+    toastr.options = {
+      "progressBar": true,
+      "positionClass": "toast-top-full-width",
+      "timeOut": 0,
+      "extendedTimeOut": 0
+    }
     toastr.error("You ran out of points! Game over!");
-    toastr.info(`The right word was: "${rightGuessString.toUpperCase()}"`);
+    toastr.info(`The right word was "${rightGuessString.toUpperCase()}"`);
     guessesRemaining = 0;
     for (let i = 0; i < 5; i++) {
       letterColor[i] = broke;
@@ -223,8 +228,14 @@ function checkGuess() {
     }
 
     if (guessesRemaining === 0) {
+      toastr.options = {
+        "progressBar": true,
+        "positionClass": "toast-top-full-width",
+        "timeOut": 0,
+        "extendedTimeOut": 0
+      }
       toastr.error("You've run out of guesses! Game over!");
-      toastr.info(`The right word was: "${rightGuessString}"`);
+      toastr.info(`The right word was "${rightGuessString.toUpperCase()}"`);
     }
   }
 }

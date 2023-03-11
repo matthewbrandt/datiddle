@@ -350,11 +350,13 @@ template {
 
 :root {
   --darkgrey: #202124;
+  --lightgrey: #ccc;
   --white: #fff;
   --yellow: #EDAE49;
   --green: #44CF6C;
   --red: #FF1B1C;
   --blue: #227C9D;
+  --scrabble: #80322F;
 }
 
 html, body {
@@ -374,6 +376,103 @@ h1 {
 
 h1, h2 {
   text-align: center;
+}
+
+.switch-wrapper {
+  text-align: center;
+  margin-top: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch-text {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+} 
+
+.switch {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--lightgrey);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: black;
+  background-image: url(/scrabble-tile-a.png);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: var(--scrabble);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px var(--scrabble);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.switch-explainer {
+  max-width: 420px;
+  
+}
+
+.switch-wrapper input[type="checkbox"]:checked ~ .switch-explainer {
+  display: block;
+}
+
+.explainer-points {
+  font-weight: bold;
+}
+
+.explainer-list {
+  float: left;
+  text-align: left;
+  margin-top: 0;
+}
+
+.point-balance {
+  margin-bottom: 20px;
+}
+
+.point-balance > span {
+  font-weight: bold;
+  color: var(--red);
 }
 
 #game-board {
