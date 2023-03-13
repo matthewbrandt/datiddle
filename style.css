@@ -386,6 +386,7 @@ h1, h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .switch-text {
@@ -449,10 +450,11 @@ input:checked + .slider:before {
 
 .switch-explainer {
   max-width: 420px;
-  
 }
 
-.switch-wrapper input[type="checkbox"]:checked ~ .switch-explainer {
+.switch-text:has(.switch #scrabble-toggle:checked) + .switch-explainer,
+.switch-text:has(.switch #scrabble-toggle:checked) ~ .explainer-list,
+.switch-text:has(.switch #scrabble-toggle:checked) ~ .point-balance {
   display: block;
 }
 
@@ -466,8 +468,8 @@ input:checked + .slider:before {
   margin-top: 0;
 }
 
-.point-balance {
-  margin-bottom: 20px;
+.switch-explainer, .explainer-list, .point-balance {
+  display: none;
 }
 
 .point-balance > span {
