@@ -508,6 +508,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 30px;
 }
 
 #keyboard-cont div {
